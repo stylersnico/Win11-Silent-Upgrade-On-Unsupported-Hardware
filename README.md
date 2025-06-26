@@ -36,4 +36,4 @@ Adapt the following part in the script you will use, one command is made for tes
 
 For the gpo script settings : 
 - Script Name : powershell.exe
-- Script Parameters : -ExecutionPolicy Unrestricted -File win11-upgrade-iso.ps1
+- Script Parameters : -ExecutionPolicy Bypass -File win11-upgrade-iso.ps1
