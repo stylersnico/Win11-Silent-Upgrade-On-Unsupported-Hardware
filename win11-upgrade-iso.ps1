@@ -109,9 +109,10 @@ $setupPath = Join-Path -Path $driveLetter -ChildPath "setup.exe"
 ##########################################
 #$UpgradeCommand = "$setupPath /auto upgrade /Eula Accept /Dynamicupdate Disable /product server /Quiet /noreboot"
 
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c $UpgradeCommand" -PassThru -NoNewWindow
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c $UpgradeCommand" -PassThru -NoNewWindow -Wait
 
-Write-Output "[$(Get-Date)] Upgrade initiated. System may reboot automatically."
-
+Write-Output "[$(Get-Date)] Upgrade to Windows 11 initiated. System will reboot automatically."
+Write-Output "[$(Get-Date)] Upgrade vers Windows 11 lancée. Le système redémarrera tout seul"
 Stop-Transcript
+Start-Sleep -s 7200
 exit 0
