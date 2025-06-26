@@ -32,7 +32,6 @@ Adapt the following part in the script you will use, one command is made for tes
 # GPO deployment Steps
 - Create a new GPO under Computer Configuration > Policies > Windows Settings > Scripts (Startup/Shutdown).
 - Add the PowerShell script to Startup Scripts.
-- Enable the GPO settings: Administrative Templates > System > Windows Componenents > Windows Powershell > Turn on PowerShell Execution → Set to Allow all scripts.
 
 For the gpo script settings : 
 - Script Name : powershell.exe
