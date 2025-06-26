@@ -2,6 +2,7 @@
 $osInfo = Get-ComputerInfo -Property WindowsProductName, OsVersion
 if ($osInfo.WindowsProductName -like "*Windows 10*") {
     Write-Host "This is Windows 10. Proceeding..."
+    Write-Host "Upgrade to Windows 11 ongoing / doesn't reboot your computer - Mise à jour vers Windows 11 en cours / ne redémarrez pas votre ordinateur"
 } else {
     Write-Host "This script only runs on Windows 10."
     exit
