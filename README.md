@@ -14,6 +14,20 @@ The script will detect the windows version and language used on the computer and
 
 Note : If you have a large number of computers, you could get a temporary ban from Microsoft, preventing the script for working.
 
+# Script configuration
+
+Adapt the following part in the script you will use, one command is made for testing, the other one for the real GPO deployment: 
+```powershell
+##########################################
+#Test Command, not silent and will reboot#
+##########################################
+#$UpgradeCommand = "$setupPath /auto upgrade /Eula Accept /Dynamicupdate Disable /product server"
+
+##########################################
+# Production Command, silent and noreboot#
+##########################################
+#$UpgradeCommand = "$setupPath /auto upgrade /Eula Accept /Dynamicupdate Disable /product server /Quiet /noreboot"
+```
 
 # GPO deployment Steps
 - Create a new GPO under Computer Configuration > Policies > Windows Settings > Scripts (Startup/Shutdown).
