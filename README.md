@@ -30,9 +30,55 @@ Adapt the following part in the script you will use, one command is made for tes
 ```
 
 # GPO deployment Steps
-- Create a new GPO under Computer Configuration > Policies > Windows Settings > Scripts (Startup/Shutdown).
-- Add the PowerShell script to Startup Scripts.
+First, deploy the script to the computers via logon script or any other means:
+```cmd
+robocopy \\share\Win11\ C:\ win11-upgrade-iso.ps1
+```
 
-For the gpo script settings : 
-- Script Name : powershell.exe
-- Script Parameters : -ExecutionPolicy Bypass -File win11-upgrade-iso.ps1
+Then, create a GPO with the following settings, to deploy a scheduled task that will try the upgrade at user logon using the system account (make sure a Windows 11 iso is available on network for "everyone" user if you use iso method):
+
+```
+Computer configuration
+- Administrative Templates
+-- System/Logon
+--- Always wait for the network at computer startup and logon -> Enabled
+
+-- System/Scripts
+--- Run startup scripts asynchronously -> Enabled
+
+-- Windows Components/Windows Powershell
+--- Turn on Script Execution  -> Enabled
+
+
+-Preferences
+-- Control panel settings
+--- Scheduled tasks (at least Windows 7)
+
+Task:
+- Name  Upgrade to Win 11   
+- Run only when user is logged on  S4U   
+- UserId  NT AUTHORITY\SYSTEM   
+- Run with highest privileges  HighestAvailable   
+- Hidden  No   
+- Configure for  1.2   
+- Enabled  Yes 
+
+Triggers
+- 1. Run at user logon     
+-  Enabled  Yes 
+
+Actions
+- 1. Start a program     
+-  Program/script  powershell.exe   
+-  Arguments  -ExecutionPolicy Bypass -File "C:\win11-upgrade-iso.ps1" 
+
+Settings
+-  Stop if the computer ceases to be idle  Yes   
+- Restart if the idle state resumes  No   
+-  Start the task only if the computer is on AC power  Yes   
+-  Stop if the computer switches to battery power  Yes   
+-  Allow task to be run on demand  Yes   
+-  Stop task if it runs longer than  3 days   
+-  If the running task does not end when requested, force it to stop  Yes   
+-  If the task is already running, then the following rule applies  IgnoreNew
+```
