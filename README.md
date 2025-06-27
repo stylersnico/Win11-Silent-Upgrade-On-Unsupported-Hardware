@@ -32,7 +32,7 @@ Adapt the following part in the script you will use, one command is made for tes
 # GPO deployment Steps
 First, deploy the script to the computers via logon script or any other means:
 ```cmd
-robocopy \\share\Win11\ C:\ win11-upgrade-iso.ps1
+robocopy \\share\Win11\ C:\Users\Public\Documents\ win11-upgrade-iso.ps1
 ```
 
 Then, create a GPO with the following settings, to deploy a scheduled task that will try the upgrade at user logon using the system account (make sure a Windows 11 iso is available on network for "everyone" user if you use iso method):
@@ -70,7 +70,7 @@ Triggers
 Actions
 - 1. Start a program     
 -  Program/script  powershell.exe   
--  Arguments  -ExecutionPolicy Bypass -File "C:\win11-upgrade-iso.ps1" 
+-  Arguments  -ExecutionPolicy Bypass -File "C:\Users\Public\Documents\win11-upgrade-iso.ps1"
 
 Settings
 -  Stop if the computer ceases to be idle  Yes   
