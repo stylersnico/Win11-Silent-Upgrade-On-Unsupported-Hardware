@@ -1,4 +1,4 @@
-﻿# Check if we are on Windows 10, ensure the script is not launching on any other OS
+# Check if we are on Windows 10, ensure the script is not launching on any other OS
 $osInfo = Get-ComputerInfo -Property WindowsProductName, OsVersion
 if ($osInfo.WindowsProductName -like "*Windows 10*") {
     Write-Host "This is Windows 10. Proceeding..."
@@ -6,6 +6,15 @@ if ($osInfo.WindowsProductName -like "*Windows 10*") {
 } else {
     Write-Host "This script only runs on Windows 10."
     exit
+}
+
+$drive = Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='C:'"
+$freeSpaceGB = [math]::Round($drive.FreeSpace / 1GB, 2)
+if ($freeSpaceGB -ge 20) {
+    Write-Output "C: drive has at least 20GB free ($freeSpaceGB GB available)."
+} else {
+    Write-Output "C: drive has less than 20GB free ($freeSpaceGB GB available)."
+	exit
 }
 
 # Ensure Temp directory exists or create it
@@ -148,5 +157,6 @@ Start-Process -FilePath "cmd.exe" -ArgumentList "/c $UpgradeCommand" -PassThru -
 Write-Output "[$(Get-Date)] Upgrade to Windows 11 initiated. System will reboot automatically."
 Write-Output "[$(Get-Date)] Upgrade vers Windows 11 lancée. Le système redémarrera tout seul"
 Stop-Transcript
+exit 0
 Start-Sleep -s 7200
 exit 0
