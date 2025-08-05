@@ -2,7 +2,7 @@
 Get-DiskImage | Where-Object {$_.Attached -eq $true} | Dismount-DiskImage
 
 # Check if we are on Windows 10, ensure the script is not launching on any other OS
-$osInfo = systeminfo | findstr /B /C:"OS Name"
+$osInfo = systeminfo
 if ($osInfo -like "*Windows 10*") {
     Write-Host "This is Windows 10. Proceeding..."
     Write-Host "Upgrade to Windows 11 ongoing / doesn't reboot your computer - Mise à jour vers Windows 11 en cours / ne redémarrez pas votre ordinateur"
