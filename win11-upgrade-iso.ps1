@@ -1,6 +1,3 @@
-# Remove previous mounted ISOs
-Get-DiskImage | Where-Object {$_.Attached -eq $true} | Dismount-DiskImage
-
 # Check if we are on Windows 10, ensure the script is not launching on any other OS
 $osInfo = systeminfo
 if ($osInfo -like "*Windows 10*") {
