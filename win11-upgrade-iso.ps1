@@ -37,8 +37,8 @@ if (!(Test-Path -Path (Split-Path $DestinationPath))) {
     New-Item -Path (Split-Path $DestinationPath) -ItemType Directory | Out-Null
 }
 
-# Transfer the ISO file using BITS
-Start-BitsTransfer -Source $SourcePath -Destination $DestinationPath
+# Transfer the ISO file using RC
+robocopy "$(Split-Path $SourcePath)" "$(Split-Path $DestinationPath)" "$(Split-Path -Leaf $SourcePath)" /COPY:DAT /R:2 /W:2
 
 
 ##########################
