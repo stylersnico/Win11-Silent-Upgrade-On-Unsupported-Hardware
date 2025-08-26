@@ -73,7 +73,7 @@ if (-not (Test-Path $fidoPath)) {
 
 # Run FIDO to download matching ISO
 Write-Host "Downloading Windows 11 ISO for $fidoEdition edition in $fidoLanguage..."
-PowerShell -ExecutionPolicy Bypass -File $fidoPath -Win 11 -Rel Latest -Ed $fidoEdition -Lang $fidoLanguage -Arch x64
+Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File $fidoPath -Win 11 -Rel Latest -Ed $fidoEdition -Lang $fidoLanguage -Arch x64" -Wait
 
 ##########################
 ### Install Windows 11 ###
